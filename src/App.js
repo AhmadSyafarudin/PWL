@@ -1,19 +1,20 @@
 import React from 'react';
-import Header from './component/header';
+import Main from './pages/main';
+import Form from './pages/form';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <Header/>
-      <div className="flex flex-row min-h-screen">
-        <div className="w-4/12 bg-neutral-700 px-4">
-          <h1 className="font-sans text-base font-medium text-white">INI LIST</h1>
-        </div>
-        <div className="w-full bg-neutral-600 px-4">
-          <h1 className="font-sans text-base font-medium text-white">ini chatbox</h1>
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path ="/" element={<Main/>}/>
+        <Route exact path ="/form" element={<Form/>}/>
+      </Routes>
+    </Router>
   );
 }
 
