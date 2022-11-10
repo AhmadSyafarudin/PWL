@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "axios";
 
 function Form(props) {
     const [title, setTitle] = useState('');
@@ -12,15 +13,26 @@ function Form(props) {
         setDesc(event.target.value);
     };
 
-    const transferValue = (event) => {
-        event.preventDefault();
-        const val = {
-            title,
-            desc,
-        };
-        props.func(val);
+    const saveTodo = async (e) => {
+        e.preventDefault();
+        await axios.post('http://localhost:5000/todo',{
+            title: title,
+            desc: desc
+        });
+        props.func();
         clearState();
-    };
+    }
+
+    
+    // const transferValue = (event) => {
+    //     event.preventDefault();
+    //     const val = {
+    //         title,
+    //         desc,
+    //     };
+    //     props.func(val);
+    //     clearState();
+    // };
 
     const clearState = () => {
         setTitle('');
@@ -33,9 +45,10 @@ function Form(props) {
             <input className="mr-4" type="text" value={title} onChange={changeTitle} />
             <label className="font-sans text-base font-medium text-white px-2">Keterangan</label>
             <input className="mr-4" type="text" value={desc} onChange={changeDesc} />
-            <button  className="font-sans text-base font-medium text-white px-2 bg-blue-500" onClick={transferValue}>Tambah</button>
+            <button className="font-sans text-base font-medium text-white px-2 bg-blue-500" onClick={saveTodo}>Tambah</button>
         </div>
     );
+
 }
 
 export default Form;
